@@ -1,0 +1,37 @@
+<div class="address-box">
+    <p class="default-address">Delivery Information</p>
+    <p>{{ user.first_name }} {{ user.last_name }}</p>
+    <p>{{ user.email }}</p>
+    {% if user.address1 %}
+        <p>{{ user.address1 }}</p>
+    {% endif %}
+    {% if user.address2 %}
+        <p>{{ user.address2 }}</p>
+    {% endif %}
+    {% if user.city %}
+        <p>{{ user.city }}</p>
+    {% endif %}
+    {% if user.province %}
+        <p>{{ user.province }}</p>
+    {% endif %}
+    {% if user.postal_code %}
+        <p>{{ user.postal_code }}</p>
+    {% endif %}
+    {% if user.country %}
+        <p>{{ user.country }}</p>
+    {% endif %}
+    {% if user.phone %}
+        <p>{{ user.phone }}</p>
+    {% endif %}
+    {% if not user.address1 and not user.address2 and not user.city and not user.province and not user.postal_code and not user.country and not user.phone %}
+        <p>No delivery information provided.</p>
+    {% endif %}
+    <div class="button-container">
+        <button hx-get="{% url 'users:edit_account_details' %}" 
+                hx-target="#account-details-content" 
+                hx-swap="innerHTML">
+            Edit
+        </button>
+    </div>
+</div>
+<div id="account-details-content" hx-swap-oob="true"></div>

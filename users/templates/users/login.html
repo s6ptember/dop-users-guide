@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+    <h1>Log In</h1>
+    <form method="post" class="reg-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Email</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="error">{{ form.password.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit">Log In</button>
+        <a href="{% url 'users:register' %}" class="link">Don't have an account? Register</a>
+    </form>
+{% endblock %}

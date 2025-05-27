@@ -1,0 +1,20 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+    <h1>Hi, {{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</h1>
+    <div class="profile-section">
+        <h2>Account Details</h2>
+        <p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+        <p>{{ request.user.email }}</p>
+        <p>{{ request.user.country|default:"Not specified" }}</p>
+        <button hx-get="{% url 'users:edit_account_details' %}" 
+                hx-target="#account-details-content" 
+                hx-swap="innerHTML">
+            Edit
+        </button>
+        <div id="account-details-content"></div>
+    </div>
+    <a href="{% url 'users:logout' %}" class="link">Log Out</a>
+{% endblock %}
