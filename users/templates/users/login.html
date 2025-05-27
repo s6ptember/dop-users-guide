@@ -22,5 +22,6 @@
         </div>
         <button type="submit">Log In</button>
         <a href="{% url 'users:register' %}" class="link">Don't have an account? Register</a>
+        <a href="{% url 'users:password_reset_request' %}" class="link">Forgot password?</a>
     </form>
 {% endblock %}
