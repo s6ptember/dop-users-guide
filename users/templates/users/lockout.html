@@ -1,0 +1,10 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Account Locked{% endblock %}
+
+{% block content %}
+    <h1>Account Temporarily Locked</h1>
+    <p>Too many failed login attempts. Your account has been locked for {{ cooloff_time }} hour(s).</p>
+    <p>Please try again later or contact support.</p>
+    <a href="{% url 'users:login' %}">Back to Login</a>
+{% endblock %}

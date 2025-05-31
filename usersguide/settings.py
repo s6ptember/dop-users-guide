@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'axes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'usersguide.urls'
@@ -159,3 +161,20 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Замените
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Замените
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')  # Замените
 SITE_URL = 'http://127.0.0.1:8000'  # Замените на продакшен-домен
+
+# Настройки django-axes
+AXES_ENABLED = True  # Включение/отключение django-axes
+AXES_FAILURE_LIMIT = 5  # Количество неудачных попыток входа до блокировки
+AXES_COOLOFF_TIME = 1  # Время блокировки в часах после превышения лимита
+AXES_LOCKOUT_TEMPLATE = 'users/lockout.html'  # Шаблон страницы блокировки
+AXES_LOGIN_FAILURE_LOG_LEVEL = 'WARNING'  # Уровень логирования неудачных попыток
+AXES_USERNAME_FIELD = 'email'  # Поле, используемое для аутентификации (в вашем случае email)
+AXES_LOCKOUT_URL = None  # Если задано, перенаправляет на указанный URL при блокировке
+AXES_VERBOSE = True  # Включает подробное логирование
+AXES_RESET_ON_SUCCESS = True  # Сбрасывать счетчик неудачных попыток при успешном входе
+
+# Интеграция с вашим пользовательским бэкендом аутентификации
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',  # Бэкенд для django-axes
+    'django.contrib.auth.backends.ModelBackend',  # Стандартный бэкенд Django
+]
